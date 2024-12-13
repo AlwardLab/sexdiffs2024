@@ -1,0 +1,152 @@
+---
+title: "Mirror vs. NC Heatmaps"
+output: html_document
+date: "2024-12-12"
+---
+
+```{r}
+
+library(ggplot2)
+library(tidyverse)
+library(car)
+library(cowplot)
+library(reshape2)
+library(gplots)
+
+
+mirror <- read_csv("/Users/lillianjackson/Library/CloudStorage/OneDrive-UniversityOfHouston/Alward lab/Project updates/WT Mirror Assays - aim 1/WT Mirror Neg Control Neural Data interpolated/WT_Mirror_NegControl_NeuralData_interpolated_Mirror.csv")
+
+malemirror <- read_csv("/Users/lillianjackson/Library/CloudStorage/OneDrive-UniversityOfHouston/Alward lab/Project updates/WT Mirror Assays - aim 1/WT Mirror Neg Control Neural Data interpolated/WT_Mirror_NegControl_NeuralData_interpolated_Malemirror.csv")
+
+femalemirror <- read_csv("/Users/lillianjackson/Library/CloudStorage/OneDrive-UniversityOfHouston/Alward lab/Project updates/WT Mirror Assays - aim 1/WT Mirror Neg Control Neural Data interpolated/WT_Mirror_NegControl_NeuralData_interpolated_Femalemirror.csv")
+
+####
+
+negcontrol <- read_csv("/Users/lillianjackson/Library/CloudStorage/OneDrive-UniversityOfHouston/Alward lab/Project updates/WT Mirror Assays - aim 1/WT Mirror Neg Control Neural Data interpolated/WT_Mirror_NegControl_NeuralData_interpolated_NegControl.csv")
+
+malenegcontrol <- read_csv("/Users/lillianjackson/Library/CloudStorage/OneDrive-UniversityOfHouston/Alward lab/Project updates/WT Mirror Assays - aim 1/WT Mirror Neg Control Neural Data interpolated/WT_Mirror_NegControl_NeuralData_interpolated_Malenegcontrol.csv")
+
+femalenegcontrol <- read_csv("/Users/lillianjackson/Library/CloudStorage/OneDrive-UniversityOfHouston/Alward lab/Project updates/WT Mirror Assays - aim 1/WT Mirror Neg Control Neural Data interpolated/WT_Mirror_NegControl_NeuralData_interpolated_Femalenegcontrol.csv")
+
+```
+
+Mirror vs. NC Heatmaps
+```{r}
+
+library(RColorBrewer)
+coul <- rev(colorRampPalette(brewer.pal(8, "RdBu"))(25))
+
+library(heatmaply)
+
+#Mirror
+cor_mirror <- round(cor(mirror[,-1], use = 'pairwise.complete.obs'), 2)
+
+#heatmap(cor_mirror, breaks = seq(-1, 1, length.out = 26), col = coul, scale = "none", margins = c(8,8), cexRow = 0.5, cexCol = 0.5)
+
+heatmap.2(cor_mirror, 
+          col = coul, 
+          scale = "none",         
+          trace = "none",         
+          key = TRUE,
+          key.title = "Color Scale",
+          density.info = "none",
+          breaks = seq(-1, 1, length.out = 26),
+          margins = c(5,17), cexRow = 0.5, cexCol = 0.5)
+
+#Negative Control
+cor_negcontrol <- round(cor(negcontrol[,-1], use = 'pairwise.complete.obs'), 2)
+
+#heatmap(cor_negcontrol, breaks = seq(-1, 1, length.out = 26), col = coul, scale = "none", margins = c(8,8), cexRow = 0.5, cexCol = 0.5)
+
+heatmap.2(cor_negcontrol, 
+          col = coul, 
+          scale = "none",         
+          trace = "none",         
+          key = TRUE,
+          key.title = "Color Scale",
+          density.info = "none",
+          breaks = seq(-1, 1, length.out = 26),
+          margins = c(5,17), cexRow = 0.5, cexCol = 0.5)
+
+
+```
+
+Mirror Heatmaps by Sex
+```{r}
+
+#Male mirror
+
+cor_malemirror <- round(cor(malemirror[,-1], use = 'pairwise.complete.obs'), 2)
+
+#heatmap(cor_malemirror, breaks = seq(-1, 1, length.out = 26), col = coul, scale = "none", margins = c(8,8), cexRow = 0.5, cexCol = 0.5)
+
+heatmap.2(cor_malemirror, 
+          col = coul, 
+          scale = "none",         
+          trace = "none",         
+          key = TRUE,
+          key.title = "Color Scale",
+          density.info = "none",
+          breaks = seq(-1, 1, length.out = 26),
+          margins = c(5,17), cexRow = 0.5, cexCol = 0.5)
+
+
+#Female mirror
+
+cor_femalemirror <- round(cor(femalemirror[,-1], use = 'pairwise.complete.obs'), 2)
+
+#heatmap(cor_femalemirror, breaks = seq(-1, 1, length.out = 26), col = coul, scale = "none", margins = c(8,8), cexRow = 0.5, cexCol = 0.5)
+
+heatmap.2(cor_femalemirror, 
+          col = coul, 
+          scale = "none",         
+          trace = "none",         
+          key = TRUE,
+          key.title = "Color Scale",
+          density.info = "none",
+          breaks = seq(-1, 1, length.out = 26),
+          margins = c(5,17), cexRow = 0.5, cexCol = 0.5)
+
+
+```
+
+Negative Control Heatmaps by Sex
+```{r}
+
+#Male neg control
+
+cor_malenegcontrol <- round(cor(malenegcontrol[,-1], use = 'pairwise.complete.obs'), 2)
+
+#heatmap(cor_malenegcontrol, breaks = seq(-1, 1, length.out = 26), col = coul, scale = "none", margins = c(8,8), cexRow = 0.5, cexCol = 0.5)
+
+heatmap.2(cor_malenegcontrol, 
+          col = coul, 
+          scale = "none",         
+          trace = "none",         
+          key = TRUE,
+          key.title = "Color Scale",
+          density.info = "none",
+          breaks = seq(-1, 1, length.out = 26),
+          margins = c(5,17), cexRow = 0.5, cexCol = 0.5)
+
+
+#Female neg control
+
+cor_femalenegcontrol <- round(cor(femalenegcontrol[,-1], use = 'pairwise.complete.obs'), 2)
+
+#heatmap(cor_femalenegcontrol, breaks = seq(-1, 1, length.out = 26), col = coul, scale = "none", margins = c(8,8), cexRow = 0.5, cexCol = 0.5)
+
+heatmap.2(cor_femalenegcontrol, 
+          col = coul, 
+          scale = "none",         
+          trace = "none",         
+          key = TRUE,
+          key.title = "Color Scale",
+          density.info = "none",
+          breaks = seq(-1, 1, length.out = 26),
+          margins = c(5,17), cexRow = 0.5, cexCol = 0.5)
+
+```
+
+
+
